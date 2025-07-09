@@ -58,8 +58,8 @@ if (isset($_REQUEST['view'])) {
 
   <link href="templatemo_style16.css" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" href="/resources/demos/style.css" />
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
-  <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
 
   <!--<script src="http://code.jquery.com/jquery-1.8.3.js"></script>-->
   <!--    The below one is an alternate of it.  -->
@@ -79,7 +79,7 @@ if (isset($_REQUEST['view'])) {
 
   <!--<script src="http://malsup.github.com/jquery.form.js"></script>-->
   <!--  https://malsup.github.io/jquery.form.js   #The above one is not available now it is here in github.io -->
-  <script src="http://malsup.github.io/jquery.form.js"></script>
+  <script src="https://malsup.github.io/jquery.form.js"></script>
 
   <!--
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
