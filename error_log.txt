@@ -1,0 +1,12 @@
+[03-Jul-2025 17:41:59 Asia/Karachi] User yasir attempted login but status is logedin
+[03-Jul-2025 17:41:59 Asia/Karachi] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in E:\xampp8\htdocs\royal_palace\index.php on line 1
+[03-Jul-2025 17:56:51 Asia/Karachi] Session check failed for username: 
+[03-Jul-2025 18:06:09 Asia/Karachi] Session check failed for username: 
+[07-Jul-2025 10:50:10 Asia/Karachi] User yasir attempted login but status is logedin
+[07-Jul-2025 10:50:10 Asia/Karachi] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in E:\xampp8\htdocs\royal_palace\index.php on line 1
+[07-Jul-2025 10:50:11 Asia/Karachi] User yasir attempted login but status is logedin
+[07-Jul-2025 10:50:11 Asia/Karachi] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in E:\xampp8\htdocs\royal_palace\index.php on line 1
+[07-Jul-2025 10:50:12 Asia/Karachi] User yasir attempted login but status is logedin
+[07-Jul-2025 10:50:12 Asia/Karachi] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in E:\xampp8\htdocs\royal_palace\index.php on line 1
+[07-Jul-2025 10:50:13 Asia/Karachi] User yasir attempted login but status is logedin
+[07-Jul-2025 10:50:13 Asia/Karachi] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in E:\xampp8\htdocs\royal_palace\index.php on line 1

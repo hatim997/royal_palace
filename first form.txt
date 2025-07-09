@@ -1,0 +1,89 @@
+<br /><br />
+            <h2 class="style1 xs">Current Hearing Details</h2>
+            <br />
+            <form method="post" action="de_client_history1.php" name="testform">
+            <?php
+				$query = "SELECT court_tab.COURT_NAME, client_history_tab.COURT_ID 
+						FROM court_tab, client_history_tab
+						WHERE court_tab.COURT_ID = client_history_tab.COURT_ID
+						AND court_tab.CITY_NAME = client_history_tab.CITY_NAME
+						AND client_history_tab.FIRM_ID = '$firm'
+						AND client_history_tab.USER_ID = '$userid'
+						AND client_history_tab.CLIENT_ID = '$cid'";
+				$result = mysql_query($query) or die ('Query failed!'.mysql_error());
+				$num = mysql_numrows($result);
+				$i = 0;
+				while($i < $num)
+				{
+					$courtid = mysql_result($result,$i, "client_history_tab.COURT_ID" );
+					$courtname = mysql_result($result,$i, "court_tab.COURT_NAME" );
+					$i++;
+				}
+				$query = "SELECT judge_tab.JUDGE_NAME, client_history_tab.JUDGE_ID 
+						FROM judge_tab, client_history_tab
+						WHERE judge_tab.JUDGE_ID = client_history_tab.JUDGE_ID
+						AND judge_tab.COURT_ID = client_history_tab.COURT_ID
+						AND client_history_tab.FIRM_ID = '$firm'
+						AND client_history_tab.USER_ID = '$userid'
+						AND client_history_tab.CLIENT_ID = '$cid'";
+				$result = mysql_query($query) or die ('Query failed!'.mysql_error());
+				$num = mysql_numrows($result);
+				$i = 0;
+				while($i < $num)
+				{
+					$judgeid = mysql_result($result,$i, "client_history_tab.JUDGE_ID" );
+					$judgename = mysql_result($result,$i, "judge_tab.JUDGE_NAME" );
+					$i++;
+				}
+				$query = "SELECT * FROM client_history_tab
+						WHERE FIRM_ID = '$firm' AND USER_ID = '$userid' AND CLIENT_ID = '$cid'";
+				$result = mysql_query($query) or die ('Query failed!'.mysql_error());
+				$num = mysql_numrows($result);
+				$i = 0;
+				while($i < $num)
+				{
+					$city = mysql_result($result,$i, "CITY_NAME" );
+					$i++;
+				}
+			?>
+            <div id="city">
+            Select city:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<select name="city" id="city" onchange="editcourt(this.value)">
+      				<option>Select City</option>
+               <?php
+                    $query = "SELECT * FROM city_tab ORDER BY CITY_NAME ASC";
+                    $result = mysql_query($query);
+                    $num = mysql_numrows($result);
+                    $i=0;
+                    while($i < $num)
+                    {
+                        $city = mysql_result($result,$i, "CITY_NAME" );
+				?>
+                       <option value="<?php echo $city; ?>"><?php echo $city; ?></option>
+              	<?php
+                        $i++;
+                    }  // while loop ends here
+				?>
+                	</select><br><br>
+            </div>
+            
+            <div id="changecourt">
+           	
+            </div>
+            
+            <div id="judgechage">
+            
+            </div>
+            
+            Hearing Detail:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <textarea name="chearing"></textarea><br><br>
+            Hearing Date:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="text" class="tcal" name="cdate" id="cdate" /><br /><br />
+            Next Hearing:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <textarea name="chearing"></textarea><br><br>
+            NextHearing Date:&nbsp;&nbsp;
+            <input type="text" class="tcal" name="ndate" id="ndate" /><br /><br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="submit" name="new_history" value="Save History" />
+            
+            </form>

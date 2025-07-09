@@ -1,0 +1,131 @@
+$from = $_POST['from'];
+	$to = $_POST['to'];
+	echo '<table width="690" border="1" cellpadding="0" cellspacing="0" align="center">
+		  <thead>
+		  <tr>
+			  <td width="30" align="center"><strong>S. No</strong></td>
+			  <td width="80" align="center"><strong>Date</strong></td>';
+		  $query = "SELECT * FROM directors_tab WHERE DIRECTOR_ID != '0' ORDER BY DIRECTOR_NAME ASC";
+		  $result1 = mysql_query($query) or die ('Query failed!'.mysql_error());
+		  $num = mysql_num_rows($result1);
+		  $i=0;
+		  while($i < $num)
+		  {
+			  $director_name = mysql_result($result1,$i, "DIRECTOR_NAME" );
+			  echo '<td width="100" align="center"><strong>'.$director_name.'</strong></td>';
+			  $i++;
+		  }
+		echo '</tr>
+		  </thead>
+		  </table>';
+	
+	echo '<table width="690" border="1" cellpadding="0" cellspacing="0" align="center">';
+	$st_date = explode("-", $from);
+	$gtotal_expense = 0;
+	$d = 0;
+	while($from < $to)
+	{
+		//$check_date = 
+		$cash_sale = 0;
+		$card_sale = 0;
+		$credit_sale = 0;
+		$total_cash_sale = 0;
+		$total_card_sale = 0;
+		$total_credit_sale = 0;
+		
+		$total_transaction = 0;
+		$total_expense = 0;
+		$director_expense = 0;
+		
+		$total_serv = 0;
+		$from = date("Y-m-d", mktime(0, 0, 0, $st_date[1], $st_date[2]+$d, $st_date[0]));
+		$show_date = date("Y-m-d", mktime(0, 0, 0, $st_date[1], $st_date[2]+$d, $st_date[0]));
+		$day = date("l", mktime(0, 0, 0, $st_date[1], $st_date[2]+$d, $st_date[0]));
+		$start = $from."&nbsp;00:00:00";
+		$end = $from."&nbsp;23:59:59";
+		
+		$after_discount = 0;
+		$total_sale = 0;
+		$total_expense = 0;
+		$dir_expense = 0;
+		$j = $d +1;
+		echo '<tr>
+				  <td width="30" align="left">&nbsp;'.$j.'</td>
+				  <td width="80" align="left">&nbsp;'.$from.'</td>';
+				  
+		$query = "SELECT * FROM directors_tab WHERE DIRECTOR_ID != '0' ORDER BY DIRECTOR_NAME ASC";
+		$result = mysql_query($query) or die ('Query failed!'.mysql_error());
+		$num = mysql_num_rows($result);
+		$i=0;
+		while($i < $num)
+		{
+			$t_expense = 0;
+			$director_id = mysql_result($result,$i, "DIRECTOR_ID" );
+			$director_name = mysql_result($result,$i, "DIRECTOR_NAME" );
+			
+			$query1 = "SELECT * FROM expense_transaction_tab WHERE DIRECTOR_ID = '$director_id' AND EXPENSE_DATE = '$from' ORDER BY TRANSACTION_ID ASC";
+			$result1 = mysql_query($query1) or die ('Query failed!'.mysql_error());
+			$num1 = mysql_num_rows($result1);
+			$j = $d +1;
+			$k=0;
+			while($k < $num1)
+			{
+				$exp = mysql_result($result1,$k, "AMOUNT" );
+				$t_expense = $t_expense + $exp;
+				$k++;
+			} // expense while ends here
+			
+			
+				echo '<td width="100" align="left">&nbsp;'.$t_expense.'</td>';
+				$gtotal_expense = $gtotal_expense + $t_expense;
+				
+			$i++;
+		}
+			echo '</tr>';
+		$d++;
+	}
+
+echo '</table>';
+		
+		$from = $_POST['from'];
+		$to = $_POST['to'];
+		echo '<table width="690" border="1" cellpadding="0" cellspacing="0" align="center">
+		<tr>
+			<td width="30" align="left"><strong>&nbsp;</strong></td>
+			<td width="80" align="center"><strong>Grand Total:</strong></td>';
+			
+		$query = "SELECT * FROM directors_tab WHERE DIRECTOR_ID != '0' ORDER BY DIRECTOR_NAME ASC";
+		$result = mysql_query($query) or die ('Query failed!'.mysql_error());
+		$num = mysql_num_rows($result);
+		$i=0;
+		while($i < $num)
+		{
+			$t_expense = 0;
+			$director_id = mysql_result($result,$i, "DIRECTOR_ID" );
+			$director_name = mysql_result($result,$i, "DIRECTOR_NAME" );
+			
+			$query1 = "SELECT * FROM expense_transaction_tab WHERE DIRECTOR_ID = '$director_id' 
+						AND EXPENSE_DATE >= '$from' 
+						AND EXPENSE_DATE <= '$to' 
+						ORDER BY TRANSACTION_ID ASC";
+			$result1 = mysql_query($query1) or die ('Query failed!'.mysql_error());
+			$num1 = mysql_num_rows($result1);
+			$k=0;
+			while($k < $num1)
+			{
+				$exp = mysql_result($result1,$k, "AMOUNT" );
+				$t_expense = $t_expense + $exp;
+				$k++;
+			} // expense while ends here
+			
+			
+				echo '<td width="100" align="left">&nbsp;'.$t_expense.'</td>';
+				
+			$i++;
+		}
+		echo '</tr></table><br>';
+		echo '<table width="300" align="right" border="0" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="200" align="left"><strong>Total Directors Expense:</strong></td>
+			<td width="100" align="left"><strong>'.$gtotal_expense.'</strong></td>
+		</tr></table>

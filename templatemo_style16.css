@@ -1,0 +1,109 @@
+/*
+CSS Credit: http://www.templatemo.com/
+*/
+
+a:link, a:visited { color: #008fc1; text-decoration: none; } 
+a:active, a:hover { text-decoration: underline; }
+
+
+h2 {
+	margin: 0px;
+	padding: 0px 0px 0px 0px;
+	font-size: 15px;
+	font-weight: bold;
+	color:#ffffff;
+}
+
+h3 {
+	margin: 0px;
+	padding: 0px;
+	font-size: 14px;
+	font-weight: bold;
+	/*color: #37a7ce;
+	text-decoration: underline;*/
+}
+
+h4 {
+	margin: 0px;
+	padding: 10px 0px 0px 0px;
+	font-size: 12px;
+	font-weight: bold;
+	color: #000000;
+}
+
+p {
+	margin: 0px 0px;
+	color: #5b5847;
+	text-align: justify;
+}
+
+img {  
+	margin: 0px; 
+	padding: 0px;
+}
+
+/* ---------- End of Menu ------------- */
+
+/* ----------------- Content ----------------------- */
+
+#templatemo_content {
+	float: left;
+	margin: 0px 0px 0px 0px;
+	padding: 0px;
+	width:1200px;
+	/*height:auto;*/
+	background-color: #FFF;
+}
+#leftcolumn_box {
+	width: auto;
+	float: left;
+	margin: 0px 0px 5px 0px;
+	padding: 0px;
+	
+	
+	
+	/*padding: 5px;
+	margin: 0px 0px 10px 0px;*/
+}
+#mid1column_box {
+	float: left;
+	margin: 0px 0px 5px 0px;
+	padding: 0px;
+	width:inherit;
+	/*padding: 5px;
+	margin: 0px 0px 10px 307px;*/
+}
+#mid2column_box {
+	float: left;
+	margin: 0px 0px 5px 0px;
+	padding: 0px;
+	width:inherit;
+	/*padding: 5px;
+	margin: 0px 0px 10px 575px;*/
+	border:solid #999 1px;
+	
+	
+}
+#mid3column_box {
+	float: left;
+	margin: 0px 0px 5px 0px;
+	padding: 0px;
+	width:300px;
+}
+#bottomcolumn2_box {
+	float:right;
+	margin: 0px 5px 5px 0px;
+	width: auto;
+	
+}
+
+#bottomcolumn_box {
+	float:left;
+	clear: both;
+	height: 50px;
+	padding-top: 10px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	width: auto;
+}

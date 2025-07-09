@@ -1,0 +1,160 @@
+<?php session_start(); ?>
+<?php
+include('../config.php');
+include('../time_settings.php');
+//$restid = $_SESSION['restid'];
+//$kit_id = $_SESSION['kitid'];
+?>
+<?php
+$date = $_POST['date'];
+$edate = $date;
+$st_date = explode("-", $edate); ?>
+
+<table width="800" border="0" cellpadding="0" cellspacing="0" style="">
+    <tr>
+        <th width="181" valign="top" style="text-align: justify">
+            <div align="center">Lunch</div>
+        </th>
+        <td width="619" style="text-align: justify">
+            <div align="left">
+
+
+                <?php
+
+                $query1 = "SELECT BANQ_ID, BANQ_NAME FROM banq_master_tab";
+                $result1 = mysqli_query($conn, $query1) or die('Query failed! ' . mysqli_error($conn));
+                $num1 = mysqli_num_rows($result1);
+
+                // Loop through each banquet hall
+                while ($row = mysqli_fetch_assoc($result1)) {
+                    $id = $row['BANQ_ID'];
+                    $query2 = "SELECT * FROM banq_order_master WHERE BANQ_ID = '$id' AND FUNCTION_DATE = '$date' AND TIME_FROM = '12:00:00' AND BOOKING_STATUS != 'C'";
+                    $result2 = mysqli_query($conn, $query2) or die('Query failed! ' . mysqli_error($conn));
+                    $row2 = mysqli_fetch_assoc($result2);
+                    $num2 = mysqli_num_rows($result2);
+
+                    if ($row2 && $row['BANQ_ID'] == $row2['BANQ_ID']) {
+                        if ($row2['BOOKING_STATUS'] == 'B' && ($row2['TIME_FROM'] == '12:00:00' && $row2['TIME_TO'] == '17:00:00')) {
+                            $f_id = $row2['ORDER_NO'];
+                            $query3 = "SELECT COUNT(*) as total FROM banq_order_master WHERE ORDER_NO = '$f_id'";
+                            $result3 = mysqli_query($conn, $query3) or die('Query failed! ' . mysqli_error($conn));
+                            $row3 = mysqli_fetch_assoc($result3);
+                            $cc = $row3['total'];
+
+                            if ($cc == "1") {
+                ?>
+                                <input name="<?php echo $id = $row['BANQ_ID']; ?>" id="button1" type="submit" value="<?php echo $name = $row['BANQ_NAME']; ?>"
+                                    style=" font-weight:900; border-width: medium; background-color:#F00;" class="box1" onclick="buttonA_clickHandler();" />
+                            <?php
+                            } else if ($cc == "2") {
+
+                            ?>
+                                <input name="<?php echo $id = $row['BANQ_ID']; ?>" id="button1" type="submit" value="<?php echo $name = $row['BANQ_NAME']; ?>"
+                                    style=" font-weight:900; border-width: medium; background-color:#66F;" class="box1" onclick="buttonA_clickHandler();" />
+                            <?php
+                            } else if ($cc == "3") {
+                            ?>
+                                <input name="<?php echo $id = $row['BANQ_ID']; ?>" id="button1" type="submit" value="<?php echo $name = $row['BANQ_NAME']; ?>"
+                                    style=" font-weight:900; border-width: medium; background-color:#363;" class="box1" onclick="buttonA_clickHandler();" />
+                            <?php
+                            } else if ($cc == "4") {
+                            ?>
+                                <input name="<?php echo $id = $row['BANQ_ID']; ?>" id="button1" type="submit" value="<?php echo $name = $row['BANQ_NAME']; ?>"
+                                    style=" font-weight:900; border-width: medium; background-color:#09F;" class="box1" onclick="buttonA_clickHandler();" />
+                            <?php
+                            } else if ($cc >= "5") {
+                            ?>
+                                <input name="<?php echo $id = $row['BANQ_ID']; ?>" id="button1" type="submit" value="<?php echo $name = $row['BANQ_NAME']; ?>"
+                                    style=" font-weight:900; border-width: medium; background-color:#FF0;" class="box1" onclick="buttonA_clickHandler();" />
+                            <?php
+                            }
+                        } else if ($row2['BOOKING_STATUS'] == 'T' && ($row2['TIME_FROM'] == '12:00:00' && $row2['TIME_TO'] == '17:00:00')) {
+                            ?>
+
+                            <input name="<?php echo $id = $row['BANQ_ID']; ?>" id="button1" type="submit" value="<?php echo $name = $row['BANQ_NAME']; ?>"
+                                style=" font-weight:900; border-width: medium; background-color:#F9C;" class="box1" onclick="buttonA_clickHandler();" />
+                        <?php
+                        } else { ?>
+                            <input name="<?php echo $id = $row['BANQ_ID']; ?>" id="button1" type="submit" value="<?php echo $name = $row['BANQ_NAME']; ?>"
+                                style=" font-weight:900; border-width: medium;" class="box1" onclick="buttonA_clickHandler();" />
+                        <?php
+                        }
+                    } else { ?>
+                        <input name="<?php echo $id = $row['BANQ_ID']; ?>" id="button1" type="submit" value="<?php echo $name = $row['BANQ_NAME']; ?>"
+                            style=" font-weight:900; border-width: medium;" class="box1" onclick="buttonA_clickHandler();" />
+                <?php  }
+                } ?><p></p>
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <th width="181" valign="top" style="text-align: justify">
+            <div align="center">Dinner</div>
+        </th>
+        <td style="text-align: justify">
+            <div align="left">
+                <?php
+
+                $result1 = mysqli_query($conn, $query1) or die('Query failed!' . mysqli_error($conn));
+                while ($row = mysqli_fetch_array($result1)) {
+                    $id = $row['BANQ_ID'];
+                    $query2 = "SELECT * FROM banq_order_master WHERE BANQ_ID = '$id' AND FUNCTION_DATE = '$date' AND TIME_FROM = '18:00:00' AND BOOKING_STATUS!='C'";
+                    $result2 = mysqli_query($conn, $query2) or die('Query failed!' . mysqli_error($conn));
+                    $row2 = mysqli_fetch_array($result2);
+                    $num2 = mysqli_num_rows($result2);
+                    if ($row2 && $row['BANQ_ID'] == $row2['BANQ_ID']) {
+                        if ($row2['BOOKING_STATUS'] == 'B' && ($row2['TIME_FROM'] == '18:00:00' && $row2['TIME_TO'] == '23:00:00')) {
+                            $f_id = $row2['ORDER_NO'];
+                            $query3 = "SELECT count(*) FROM banq_order_master WHERE ORDER_NO = '$f_id'";
+                            $result3 = mysqli_query($conn, $query3) or die('Query failed!' . mysqli_error($conn));
+                            $row3 = mysqli_fetch_array($result3);
+                            $cc = $row3['count(*)'];
+
+                            if ($cc == "1") {
+                ?>
+                                <input name="<?php echo $id = $row['BANQ_ID']; ?>" id="button1" type="submit" value="<?php echo $name = $row['BANQ_NAME']; ?>"
+                                    style=" font-weight:900; border-width: medium; background-color:#F00;" class="box1" onclick="buttonB_clickHandler();" />
+                            <?php
+                            } else if ($cc == "2") {
+
+                            ?>
+                                <input name="<?php echo $id = $row['BANQ_ID']; ?>" id="button1" type="submit" value="<?php echo $name = $row['BANQ_NAME']; ?>"
+                                    style=" font-weight:900; border-width: medium; background-color:#66F;" class="box1" onclick="buttonB_clickHandler();" />
+                            <?php
+                            } else if ($cc == "3") {
+                            ?>
+                                <input name="<?php echo $id = $row['BANQ_ID']; ?>" id="button1" type="submit" value="<?php echo $name = $row['BANQ_NAME']; ?>"
+                                    style=" font-weight:900; border-width: medium; background-color:#363;" class="box1" onclick="buttonB_clickHandler();" />
+                            <?php
+                            } else if ($cc == "4") {
+                            ?>
+                                <input name="<?php echo $id = $row['BANQ_ID']; ?>" id="button1" type="submit" value="<?php echo $name = $row['BANQ_NAME']; ?>"
+                                    style=" font-weight:900; border-width: medium; background-color:#09F;" class="box1" onclick="buttonB_clickHandler();" />
+                            <?php
+                            } else if ($cc >= "5") {
+                            ?>
+                                <input name="<?php echo $id = $row['BANQ_ID']; ?>" id="button1" type="submit" value="<?php echo $name = $row['BANQ_NAME']; ?>"
+                                    style=" font-weight:900; border-width: medium; background-color:#FF0;" class="box1" onclick="buttonB_clickHandler();" />
+                            <?php
+                            }
+                        } else if ($row2['BOOKING_STATUS'] == 'T' && ($row2['TIME_FROM'] == '18:00:00' && $row2['TIME_TO'] == '23:00:00')) {
+                            ?>
+
+                            <input name="<?php echo $row['BANQ_ID']; ?>" id="button" type="submit" value="<?php echo $row['BANQ_NAME']; ?>"
+                                style=" font-weight:900; border-width: medium; background-color:#F9C;" class="box1" onclick="buttonB_clickHandler();" />
+                        <?php  } else { ?>
+                            <input name="<?php echo $row['BANQ_ID']; ?>" id="button" type="submit" value="<?php echo $row['BANQ_NAME']; ?>"
+                                style=" font-weight:900; border-width: medium;" class="box1" onclick="buttonB_clickHandler();" />
+                        <?php  }
+                    } else { ?>
+                        <input name="<?php echo $row['BANQ_ID']; ?>" id="button" type="submit" value="<?php echo $row['BANQ_NAME']; ?>"
+                            style=" font-weight:900; border-width: medium;" class="box1" onclick="buttonB_clickHandler();" />
+                <?php  }
+                } ?>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<!-- start of right column --><!-- end of right column -->

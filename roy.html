@@ -1,0 +1,30 @@
+<form name="form">
+<input type="text" name="tbox">
+<input type="button" value="Add" onClick="myFunction()">
+</form>
+<p id="myDiv"></p>
+<script>
+function myFunction()
+{
+var txt = document.form.tbox.value;
+var xmlhttp_1;
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp_1=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp_1=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+
+xmlhttp_1.onreadystatechange=function()
+  {
+  if (xmlhttp_1.readyState==4 && xmlhttp_1.status==200)
+    {
+    document.getElementById("myDiv").innerHTML=xmlhttp_1.responseText;
+    }
+  }
+xmlhttp_1.open("GET","add_manual_dish.php",true);
+xmlhttp_1.send();
+}
+</script>
