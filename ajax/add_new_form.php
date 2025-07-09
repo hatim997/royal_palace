@@ -9,12 +9,11 @@ $orderno = $_POST['orderno'];
 
 ?>
 <?php
-	
-	$value = $_POST['value'];
-	//echo $value."<br>";
-	if($value == "M")
-	{
-		echo '<form name="main_form">
+
+$value = $_POST['value'];
+//echo $value."<br>";
+if ($value == "M") {
+	echo '<form name="main_form">
             <table width="300" align="center" border="0" cellspacing="0" cellpadding="0">
 			  <tr>
 				<td>&nbsp;</td>
@@ -43,28 +42,28 @@ $orderno = $_POST['orderno'];
 			  </tr>
 			</table>
 			</form>';
-	}
-	else if($value == "C")
-	{	
-		echo '<form name="ctrl_form">
+} else if ($value == "C") {
+	echo '<form name="ctrl_form">
             <table width="300" align="center" border="0" cellspacing="0" cellpadding="0">
 			  <tr>
 				<td align="left">Main:</td>
 				<td align="left">
 				<select name="main" id="main">
 				  <option value="">Select Main</option>';
-				  $query = "SELECT * FROM main_acct_tab ORDER BY MAIN_ACCT_TITLE ASC";
-				  $result = mysql_query($query);
-				  $num = mysql_numrows($result);
-				  $i=0;
-				  while($i < $num)
-				  {
-					  $assets_tittle = mysql_result($result,$i, "MAIN_ACCT_TITLE" );
-					  $assets_code = mysql_result($result,$i, "MAIN_ACCT_CODE" );
-					  echo '<option value="'.$assets_code.'">'.$assets_tittle.'</option>';
-					  $i++;
-				  }  // while loop ends here
-				echo '</select></td>
+	$query = "SELECT * FROM main_acct_tab ORDER BY MAIN_ACCT_TITLE ASC";
+	$result = mysqli_query($conn, $query);
+	$num = mysqli_num_rows($result);
+	$i = 0;
+	while ($i < $num) {
+		mysqli_data_seek($result, $i);
+		$row = mysqli_fetch_assoc($result);
+		$assets_tittle = $row["MAIN_ACCT_TITLE"];
+		$assets_code = $row["MAIN_ACCT_CODE"];
+		echo '<option value="' . $assets_code . '">' . $assets_tittle . '</option>';
+		$i++;
+	}
+	// while loop ends here
+	echo '</select></td>
 			  </tr>
 			  <tr>
 				<td>&nbsp;</td>
@@ -93,28 +92,28 @@ $orderno = $_POST['orderno'];
 			  </tr>
 			</table>
 			</form>';
-	}
-	else if($value == "C1")
-	{	
-		echo '<form name="ctrl_form">
+} else if ($value == "C1") {
+	echo '<form name="ctrl_form">
             <table width="300" align="center" border="0" cellspacing="0" cellpadding="0">
 			  <tr>
 				<td width="120" align="left">Main:</td>
 				<td width="180" align="left">
 				<select name="main" id="main" onchange="show_control(this.value);">
 				  <option value="">Select Main</option>';
-				  $query = "SELECT * FROM main_acct_tab ORDER BY MAIN_ACCT_TITLE ASC";
-				  $result = mysql_query($query);
-				  $num = mysql_numrows($result);
-				  $i=0;
-				  while($i < $num)
-				  {
-					  $assets_tittle = mysql_result($result,$i, "MAIN_ACCT_TITLE" );
-					  $assets_code = mysql_result($result,$i, "MAIN_ACCT_CODE" );
-					  echo '<option value="'.$assets_code.'">'.$assets_tittle.'</option>';
-					  $i++;
-				  }  // while loop ends here
-				echo '</select></td>
+	$query = "SELECT * FROM main_acct_tab ORDER BY MAIN_ACCT_TITLE ASC";
+	$result = mysqli_query($conn, $query);
+	$num = mysqli_num_rows($result);
+	$i = 0;
+	while ($i < $num) {
+		mysqli_data_seek($result, $i);
+		$row = mysqli_fetch_assoc($result);
+		$assets_tittle = $row["MAIN_ACCT_TITLE"];
+		$assets_code = $row["MAIN_ACCT_CODE"];
+		echo '<option value="' . $assets_code . '">' . $assets_tittle . '</option>';
+		$i++;
+	}
+	// while loop ends here
+	echo '</select></td>
 			  </tr>
 			  <tr>
 				<td>&nbsp;</td>
@@ -150,28 +149,28 @@ $orderno = $_POST['orderno'];
 			  </tr>
 			</table>
 			</form>';
-	}
-	else
-	{	
-		echo '<form name="ctrl_form">
+} else {
+	echo '<form name="ctrl_form">
             <table width="300" align="center" border="0" cellspacing="0" cellpadding="0">
 			  <tr>
 				<td width="120" align="left">Main:</td>
 				<td width="180" align="left">
 				<select name="main" id="main" onchange="show_control1(this.value);">
 				  <option value="">Select Main</option>';
-				  $query = "SELECT * FROM main_acct_tab ORDER BY MAIN_ACCT_TITLE ASC";
-				  $result = mysql_query($query);
-				  $num = mysql_numrows($result);
-				  $i=0;
-				  while($i < $num)
-				  {
-					  $assets_tittle = mysql_result($result,$i, "MAIN_ACCT_TITLE" );
-					  $assets_code = mysql_result($result,$i, "MAIN_ACCT_CODE" );
-					  echo '<option value="'.$assets_code.'">'.$assets_tittle.'</option>';
-					  $i++;
-				  }  // while loop ends here
-				echo '</select></td>
+	$query = "SELECT * FROM main_acct_tab ORDER BY MAIN_ACCT_TITLE ASC";
+	$result = mysqli_query($conn, $query);
+	$num = mysqli_num_rows($result);
+	$i = 0;
+	while ($i < $num) {
+		mysqli_data_seek($result, $i);
+		$row = mysqli_fetch_assoc($result);
+		$assets_tittle = $row["MAIN_ACCT_TITLE"];
+		$assets_code = $row["MAIN_ACCT_CODE"];
+		echo '<option value="' . $assets_code . '">' . $assets_tittle . '</option>';
+		$i++;
+	}
+	// while loop ends here
+	echo '</select></td>
 			  </tr>
 			  <tr>
 				<td>&nbsp;</td>
@@ -215,5 +214,5 @@ $orderno = $_POST['orderno'];
 			  </tr>
 			</table>
 			</form>';
-	}
+}
 ?>

@@ -1,42 +1,44 @@
 <?php session_start(); ?>
-<?php 
+<?php
 include('../config.php');
 include('../time_settings.php');
 ?>
 <?php
-	
-	$created_id = $_SESSION['username'];
-	$name = $_POST['name'];
-	//$fname = $_POST['fname'];
-	$day = $_POST['day'];
-	$month = $_POST['month'];
-	$cell = $_POST['cell'];
-	$email = $_POST['email'];
-	$city = $_POST['city'];
-	$pro_type = $_POST['pro_type'];
-	
-	$dob = $day."-".$month;
-	
-	$query1 = "SELECT max(GUEST_ID) FROM guest_master_tab";
-	$result1 = mysql_query($query1);
-	$num1 = mysql_numrows($result1);
-	$i = 0;
-	while($i < $num1)
-	{
-		$guest_id = mysql_result($result1,$i, "max(GUEST_ID)" );
-		$i++;
-	}
-	$guest_id++;
-	
-	$query = "INSERT INTO guest_master_tab
-	(GUEST_ID, GUEST_NAME, GUEST_FATHER, DATE_OF_BIRTH, GUEST_MOBILE_NO, GUEST_EMAIL, GUEST_CITY, PROFESSION_ID, CREATED_ID, CREATED_ON, EDITED_ID, EDITED_ON) VALUES('$guest_id','$name','$fname','$dob','$cell','$email','$city','$pro_type','$created_id','$date_time','$created_id','$date_time')";
-	mysql_query($query) or die('Insertion Failed:'.mysql_error());
-	
-	//echo "Record Defined Successfully";
-	echo '<span class="style2"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Last Guest ID is '.$guest_id.'<br><br></strong></span>';
-	//echo "Record Defined Successfully ".$var10;
-	
-	echo '<form name="testform" id="testform" action="de_client_master.php" method="post">
+
+$created_id = $_SESSION['username'];
+$name = $_POST['name'];
+//$fname = $_POST['fname'];
+$day = $_POST['day'];
+$month = $_POST['month'];
+$cell = $_POST['cell'];
+$email = $_POST['email'];
+$city = $_POST['city'];
+$pro_type = $_POST['pro_type'];
+
+$dob = $day . "-" . $month;
+$query1 = "SELECT max(GUEST_ID) FROM guest_master_tab";
+$result1 = mysqli_query($conn, $query1);
+$num1 = mysqli_num_rows($result1);
+$i = 0;
+while ($i < $num1) {
+	mysqli_data_seek($result1, $i);
+	$row = mysqli_fetch_assoc($result1);
+	$guest_id = $row['max(GUEST_ID)'];
+	$i++;
+}
+$guest_id++;
+
+$query = "INSERT INTO guest_master_tab
+	(GUEST_ID, GUEST_NAME, GUEST_FATHER, DATE_OF_BIRTH, GUEST_MOBILE_NO, GUEST_EMAIL, GUEST_CITY, PROFESSION_ID, CREATED_ID, CREATED_ON, EDITED_ID, EDITED_ON) 
+	VALUES('$guest_id','$name','$fname','$dob','$cell','$email','$city','$pro_type','$created_id','$date_time','$created_id','$date_time')";
+mysqli_query($conn, $query) or die('Insertion Failed:' . mysqli_error($conn));
+
+
+//echo "Record Defined Successfully";
+echo '<span class="style2"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Last Guest ID is ' . $guest_id . '<br><br></strong></span>';
+//echo "Record Defined Successfully ".$var10;
+
+echo '<form name="testform" id="testform" action="de_client_master.php" method="post">
 			  <table width="390" align="center" border="0" cellpadding="0" cellspacing="0">
 			  
 	  <tr>
@@ -133,17 +135,19 @@ include('../time_settings.php');
 		<td width="270" align="left">
 		<select id="city" name="city">
 		  <option value="">Select City</option>';
-		  $query = "SELECT * FROM city_tab ORDER BY CITY_NAME ASC";
-		  $result = mysql_query($query);
-		  $num = mysql_numrows($result);
-		  $i=0;
-		  while($i < $num)
-		  {
-			  $city = mysql_result($result,$i, "CITY_NAME" );
-			  echo '<option value="'.$city.'">'.$city.'</option>';
-			  $i++;
-		  }  // while loop ends here
-		  echo '</select></td>
+$query = "SELECT * FROM city_tab ORDER BY CITY_NAME ASC";
+$result = mysqli_query($conn, $query);
+$num = mysqli_num_rows($result);
+$i = 0;
+while ($i < $num) {
+	mysqli_data_seek($result, $i);
+	$row = mysqli_fetch_assoc($result);
+	$city = $row['CITY_NAME'];
+	echo '<option value="' . $city . '">' . $city . '</option>';
+	$i++;
+}
+// while loop ends here
+echo '</select></td>
 	  </tr>
 	  <tr height="3%">
 		<td>&nbsp;</td>
@@ -154,18 +158,20 @@ include('../time_settings.php');
 		<td width="270" align="left">
 		<select id="pro_type" name="pro_type">
 		  <option value="">Profession Type</option>';
-		  $query = "SELECT * FROM profession_tab ORDER BY PROFESSION_TITLE ASC";
-		  $result = mysql_query($query);
-		  $num = mysql_numrows($result);
-		  $i=0;
-		  while($i < $num)
-		  {
-			  $p_id = mysql_result($result,$i, "PROFESSION_ID" );
-			  $p_name = mysql_result($result,$i, "PROFESSION_TITLE" );
-			  echo '<option value="'.$p_id.'">'.$p_name.'</option>';
-			  $i++;
-		  }  // while loop ends here
-		  echo '</select></td>
+$query = "SELECT * FROM profession_tab ORDER BY PROFESSION_TITLE ASC";
+$result = mysqli_query($conn, $query);
+$num = mysqli_num_rows($result);
+$i = 0;
+while ($i < $num) {
+	mysqli_data_seek($result, $i);
+	$row = mysqli_fetch_assoc($result);
+	$p_id = $row['PROFESSION_ID'];
+	$p_name = $row['PROFESSION_TITLE'];
+	echo '<option value="' . $p_id . '">' . $p_name . '</option>';
+	$i++;
+}
+// while loop ends here
+echo '</select></td>
 	  </tr>
 	  <tr height="5%">
 		<td>&nbsp;</td>
